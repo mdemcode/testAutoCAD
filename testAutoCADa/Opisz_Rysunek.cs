@@ -13,8 +13,8 @@ namespace testAutoCADa {
 
         #region POLA KLASY
         private RysunekElementu dane_rysunku;
-        private static dynamic acadApp; //AcadApplication acadApp;
-        private static dynamic rysunek_ACAD; //AcadDocument
+        private dynamic acadApp; //AcadApplication acadApp;
+        private dynamic rysunek_ACAD; //AcadDocument
         private const string adres_blokow = "\\\\Plsiedfs01\\z1\\1ST\\DZIENNIKI SPAWANIA\\#program#\\_bloki\\";
         #endregion
 
@@ -63,9 +63,9 @@ namespace testAutoCADa {
             Wstaw_Blok();
             acadApp.WindowState = 3; //AcWindowState.acMax;
                 int ilosc_spoin = Petla_Glowna();
-            acadApp.WindowState = 2; // AcWindowState.acMin;
             bool zapis = Czy_zapisac(ilosc_spoin);
             if (zapis) dane_rysunku.Ile_spoin = ilosc_spoin;
+            acadApp.WindowState = 2; // AcWindowState.acMin;
             rysunek_ACAD.Close(zapis);
         }
 
