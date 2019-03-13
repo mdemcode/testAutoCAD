@@ -49,8 +49,8 @@ namespace testAutoCADa {
 
         private bool Otworz_Rysunek() {
             try {
-                dynamic listaRys = acadApp.Documents; //AcadDocuments
-                rysunek_ACAD = listaRys.Open(dane_rysunku.Adres + dane_rysunku.Nazwa);
+                //AcadDocuments listaRys = acadApp.Documents;
+                rysunek_ACAD = acadApp.Documents.Open(dane_rysunku.Adres + dane_rysunku.Nazwa);
                 return true;
             }
             catch {
