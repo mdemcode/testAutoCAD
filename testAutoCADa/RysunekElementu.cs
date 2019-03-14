@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +10,19 @@ namespace testAutoCADa {
     class RysunekElementu {
 
         #region POLA KLASY
-        public string Nazwa;
-        public string Adres;
-        public float Skala_bloku;
-        public string Nazwa_bloku;
-        public int Ile_spoin;
-        public string Kto_opisal;
+        public string Nazwa { get; set; }
+        public string Adres { get; set; }
+        public float Skala_bloku { get; set; }
+        public string Nazwa_bloku { get; set; }
+        public int Ile_spoin { get; set; }
+        public string Kto_opisal { get; set; }
         #endregion
 
         #region KONSTRUKTOR
         public RysunekElementu(string nazwa_rys, string adres_rys, float skala_bloku, string nazwa_bloku, int ile_spoin, string kto_opisal) {
-            //Adres = adres_rys;
+            Adres = adres_rys;
             //Nazwa = Nadaj_nazwe(nazwa_rys);
-            Nadaj_nazwe(nazwa_rys);                 // <- to do usunięcia (nazwa i adres rysunku ma być przekazywana z zewnątrz; a nazwa uaktualniana w metodzie Nadaj_nazwę)
+            Nadaj_nazwe(nazwa_rys);                 // <- to do usunięcia (nazwa rysunku ma być przekazywana z zewnątrz i uaktualniana w metodzie Nadaj_nazwę)
             Skala_bloku = skala_bloku;
             Nazwa_bloku = nazwa_bloku;
             Ile_spoin = ile_spoin;
@@ -41,10 +41,10 @@ namespace testAutoCADa {
                 InitialDirectory = "C:\\Users\\demianczukm\\Desktop\\PROTON\\"                          // <- to do usunięcia
             };                                                                                          // <- to do usunięcia
             if (oknoDialogowe.ShowDialog() == true) {                                                   // <- to do usunięcia
-                string plik = oknoDialogowe.FileName;
-                int poz = plik.LastIndexOf('\\');
-                this.Adres = plik.Substring(0, poz + 1);
-                this.Nazwa = plik.Substring(poz + 1, plik.Length - (poz + 1));
+                this.Nazwa = oknoDialogowe.SafeFileName;
+                //int poz = plik.LastIndexOf('\\');
+                //this.Adres = plik.Substring(0, poz + 1);
+                //this.Nazwa = plik.Substring(poz + 1, plik.Length - (poz + 1));
             }
             nazwa_rysunku = "cos";                                                                      // <- to do usunięcia
             return nazwa_rysunku;

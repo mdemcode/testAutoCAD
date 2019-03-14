@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:testAutoCADa"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="500">
+        Title="Test AutoCAD" Height="100" Width="230">
     <Grid>
-        <Button x:Name="ButtonOtworz" Content="Otworz" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="187,109,0,0" Height="50" Click="ButtonOtworz_Click"/>
+        <Button x:Name="ButtonOtworz" Content="Otworz" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="30" Click="ButtonOtworz_Click"/>
 
     </Grid>
 </Window>

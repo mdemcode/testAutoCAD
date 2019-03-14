@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-//using AutoCAD;
+using AutoCAD;
 
 namespace testAutoCADa {
 
@@ -49,8 +49,8 @@ namespace testAutoCADa {
 
         private bool Otworz_Rysunek() {
             try {
-                //AcadDocuments listaRys = acadApp.Documents;
-                rysunek_ACAD = acadApp.Documents.Open(dane_rysunku.Adres + dane_rysunku.Nazwa);
+                //AcadDocuments listaRys = acadApp.Documents; 
+                rysunek_ACAD = acadApp.Documents.Open(dane_rysunku.Adres + dane_rysunku.Nazwa); //("C:\\Users\\demianczukm\\Desktop\\N-400100-C-UTH-IG04-00010-AB.dwg");
                 return true;
             }
             catch {
@@ -62,30 +62,30 @@ namespace testAutoCADa {
         private void Opisz_Spoiny() {
             Wstaw_Blok();
             acadApp.WindowState = 3; //AcWindowState.acMax;
-                int ilosc_spoin = Petla_Glowna();
+            int ilosc_spoin = Petla_Glowna();
             bool zapis = Czy_zapisac(ilosc_spoin);
             if (zapis) dane_rysunku.Ile_spoin = ilosc_spoin;
             acadApp.WindowState = 2; // AcWindowState.acMin;
             rysunek_ACAD.Close(zapis);
         }
 
-        private void Wstaw_Blok () {
-            dynamic warstwa_spoin = rysunek_ACAD.Layers.Add("opisSpoin"); //AcadLayer
-            rysunek_ACAD.ActiveLayer = warstwa_spoin;
-            double[] pkt_bazowy = { 0, 0, 0 };
-            dynamic blok_bazowy = rysunek_ACAD.ModelSpace.InsertBlock(pkt_bazowy, adres_blokow + dane_rysunku.Nazwa_bloku + ".dwg", 1, 1, 1, 0); //AcadBlockReference
-            blok_bazowy.Delete();
-            blok_bazowy = null;
+        private void Wstaw_Blok() {
+                dynamic warstwa_spoin = rysunek_ACAD.Layers.Add("opisSpoin"); //AcadLayer
+                rysunek_ACAD.ActiveLayer = warstwa_spoin;
+                double[] pkt_bazowy = { 0, 0, 0 };
+                dynamic blok_bazowy = rysunek_ACAD.ModelSpace.InsertBlock(pkt_bazowy, adres_blokow + dane_rysunku.Nazwa_bloku + ".dwg", 1, 1, 1, 0); //AcadBlockReference
+                blok_bazowy.Delete();
+                blok_bazowy = null;
         }
 
         private int Petla_Glowna() {                           // <- TO DO ZMIANY
+            MessageBox.Show("Rysunek:\n" + dane_rysunku.Nazwa);
             rysunek_ACAD.Application.ZoomAll();
             double[] pktWst1;
             double[] pktWst2=new double[] { 0, 0, 0 };
             dynamic blok_spoiny; //AcadBlockReference
             int i = dane_rysunku.Ile_spoin;
             try {
-                MessageBox.Show("Rysunek:\n"+dane_rysunku.Nazwa); // <- wstrzymuje działanie programu do czasu pełnego otworzenia rysunku
                 while (true) {
                     pktWst1 = rysunek_ACAD.Utility.GetPoint(pktWst2, "Wskaz punkt");
                     i++;
@@ -94,13 +94,11 @@ namespace testAutoCADa {
                     else
                         blok_spoiny = rysunek_ACAD.PaperSpace.InsertBlock(pktWst1, dane_rysunku.Nazwa_bloku, dane_rysunku.Skala_bloku, dane_rysunku.Skala_bloku, 1, 0);
                     dynamic attr = blok_spoiny.GetAttributes();
-                    attr[0].TextString = i.ToString();
-                    //AcadAttributeReference atr_bloku = (AcadAttributeReference)attr[0];
-                    //atr_bloku.TextString = i.ToString();
+                    attr[0].TextString = i.ToString(); //(AcadAttributeReference)
                 }
             }
-            catch  { // (Exception e)
-                //MessageBox.Show(e.Message); // <- Tylko do testow
+            catch  (Exception e) { // 
+                if (e.Message!="Użytkownik wprowadził słowo kluczowe") MessageBox.Show(e.Message); // <- Tylko do testow
                 return i;
             }
         }
@@ -118,7 +116,10 @@ namespace testAutoCADa {
                     return true;
                 }
             }
-            else return true;
+            else {
+                dane_rysunku.Kto_opisal = Environment.UserName;
+                return true;
+            }
         }
         #endregion
     }
