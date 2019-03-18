@@ -101,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AutoCAD">
-      <Guid>{891DBC3B-CF8B-4F7E-BF55-D9599E4B622C}</Guid>
+      <Guid>{C48AD108-EA9D-475D-B54D-0D2E8BA30E28}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>

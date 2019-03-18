@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-using AutoCAD;
+//using AutoCAD;
 
 namespace testAutoCADa {
 
@@ -78,7 +78,7 @@ namespace testAutoCADa {
                 blok_bazowy = null;
         }
 
-        private int Petla_Glowna() {                           // <- TO DO ZMIANY
+        private int Petla_Glowna() {
             MessageBox.Show("Rysunek:\n" + dane_rysunku.Nazwa);
             rysunek_ACAD.Application.ZoomAll();
             double[] pktWst1;
